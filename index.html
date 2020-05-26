@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+        <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="node_modules/font-awesome/css/font-awesome.min.css">
+        <link rel="stylesheet" href="node_modules/bootstrap-social/bootstrap-social.css"> 
+        <link rel="stylesheet" href="styles.css">
+
+    </head>
+
+    <body>
+        <div id="feedbck" class="modal fade" role="dialog">
+            <div class="modal-dialog modal-lg" role="content">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Give A Feedback</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                        <div class="modal-body">
+                            <form name="feedBack" netlify>
+                                <div class="form-row">
+                                    <div class="form-group col-12 col-sm-12">
+                                        <label for="fbck">Write your feedback here:</label>
+                                        <textarea class="form-control" id="fbck" rows="4"></textarea>
+                                        <button type="submit" class="btn btn-sm btn-success">Submit</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                </div>
+            </div>
+        </div>
+
+        <header>
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-sm-12 text-center">
+                    <h1>LameDictionary</h1>
+                    <hr>
+                </div>
+                <div class="col-12 col-sm-12 text-center">
+                    <h4>An online dictionary so lame that<br>
+                    it makes you question the existence of<br>
+                    online dictionaries</h4>
+                <hr>
+                </div>
+            </div>
+        </div>
+        </header>
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-sm-12 text-center">
+                    <h5>Programmed by an extremely boring coder</h5>
+                    <h6><em>Powered by <a href="https://dictionaryapi.dev/">https://dictionaryapi.dev/</a></em></h6>
+                    <hr>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row justify-content-center align-items-center">
+                <div class="col-12 col-sm-6">
+                    <input type="text" class="form-control" aria-label="Large" id="word" placeholder="Search a word.....">
+                    <button type="button" class="btn btn-primary btn-sm btn-block" id="submitBtn" onclick="getInput();">Search</button>
+                </div>
+            </div>
+                <!-- <div class="row align-items-center">
+                <div class="col-12 col-sm-12">
+                    <button type="button" class="btn btn-primary btn-sm" id="submitBtn">Search</button>
+                </div> -->
+            
+          </div>
+          <div class="container">
+              <div class="row justify-content-center">
+                  <div class="col-12 col-sm-6 align-self-center">
+                      <div class="card">
+                          <h3 class="card-header bg-info text-white" id="title"></h3>
+                          <div class="card-body">
+                              <h4 id="loder" class="text-center text-success"></h4>
+                              <h4 id="phonetic"></h4><br>
+                              <h4 id="origin"></h4><br>
+                              <h4 id="testTwo"></h4>
+                              <h4 id="exm"></h4>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="container">
+              <div class="row justify-content-center">
+                  <div class="col-12 col-sm-6 align-self-center">
+                    <button type="button" class="btn btn-success btn-sm btn-block" data-toggle="modal" data-target="#feedbck">Give A Feedback</button>
+                  </div>
+              </div>
+          </div>
+         
+        
+
+        <script src="node_modules/jquery/dist/jquery.slim.min.js"></script>
+        <script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
+        <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script>
+            /*$(document).ready(function() {
+                $("#submitBtn").click(function() {
+                    var str = $("#word").val();
+                    console.log(str);
+                });*/
+            function getInput() {
+                document.getElementById("loder").innerHTML = "LOADING......."
+                setTimeout(() => {
+                    document.getElementById("loder").style.display = "none";
+                }, 2500);
+
+               var str = document.getElementById("word").value;
+
+            
+            fetch(`https://api.dictionaryapi.dev/api/v1/entries/en/${str}`)
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+        //var arr = JSON.parse(data);
+        document.getElementById("title").innerHTML = "Word: " + data[0].word;
+        //document.getElementById("exm").innerHTML = JSON.stringify(data);
+        document.getElementById("phonetic").innerHTML = "<em>" + "<b>" + "Phoenetic: " + "</b>" + "</em>" + data[0].phonetic;
+        document.getElementById("origin").innerHTML = "<em>" + "<b>" + "Origin: " + "</b>" + "</em>" + data[0].origin;
+        //document.getElementById("testTwo").innerHTML = "meaning: " + data[0].meaning.noun[0].definition;
+
+        /*let html = "";
+        data.forEach(function(val) {
+        const keys = Object.keys(val);
+        console.log(keys);
+        html += "<div class = 'cat'>";
+        keys.forEach(function(key) {
+            html += "<strong>" + key + "</strong>: " + val[key] + "<br>";
+            if(key === "meaning"){
+                
+            }
+                });
+                
+                html += "</div><br>";
+            })
+           
+            document.getElementById("test").innerHTML = html;*/
+
+
+
+            const keus = Object.keys(data[0].meaning);
+            console.log(keus);
+
+            let htmll = "";
+                if(keus[0] === "noun"){        
+                data[0].meaning.noun.forEach(function(vall) {
+                    const keis = Object.keys(vall);
+                    console.log(keis)
+                    htmll += "<div class ='dog'>";
+                    keis.forEach(function(kei) {
+                        htmll += "<em>" + "<b>" + kei + "</b>" + "</em>: " + vall[kei] + "<br>";
+                    })
+                    htmll += "</div><br>"
+                })
+                document.getElementById("testTwo").innerHTML = htmll;
+                }
+                
+                if(keus[0] === "verb"){
+                    data[0].meaning.verb.forEach(function(vall) {
+                    const kes = Object.keys(vall);
+                    console.log(kes)
+                    htmll += "<div class ='dog'>";
+                    kes.forEach(function(kei) {
+                        htmll += "<em>" + "<b>" + kei + "</b>" + "</em>: " + vall[kei] + "<br>";
+                    })
+                    htmll += "</div><br>"
+                })
+                document.getElementById("testTwo").innerHTML = htmll;
+                }
+
+                if(keus[0] === "adverb"){
+                    data[0].meaning.adverb.forEach(function(vall) {
+                    const ke = Object.keys(vall);
+                    console.log(ke)
+                    htmll += "<div class ='dog'>";
+                    ke.forEach(function(kei) {
+                        htmll += "<em>" + "<b>" + kei + "</b>" + "</em>: " + vall[kei] + "<br>";
+                    })
+                    htmll += "</div><br>"
+                    })
+                    document.getElementById("testTwo").innerHTML = htmll;
+                }
+
+                if(keus[0] === "adjective"){
+                    data[0].meaning.adjective.forEach(function(vall) {
+                    const k = Object.keys(vall);
+                    console.log(k)
+                    htmll += "<div class ='dog'>";
+                    k.forEach(function(kei) {
+                        htmll += "<em>" + "<b>" + kei + "</b>" + "</em>: " + vall[kei] + "<br>";
+                    })
+                    htmll += "</div><br>"
+                    })
+                    document.getElementById("testTwo").innerHTML = htmll;
+                }
+
+                if(keus[0] === "exclamation"){
+                    data[0].meaning.exclamation.forEach(function(vall) {
+                    const keyOne = Object.keys(vall);
+                    console.log(keyOne)
+                    htmll += "<div class ='dog'>";
+                    keyOne.forEach(function(kei) {
+                        htmll += "<em>" + "<b>" + kei + "</b>" + "</em>: " + vall[kei] + "<br>";
+                    })
+                    htmll += "</div><br>"
+                    })
+                    document.getElementById("testTwo").innerHTML = htmll;
+                }
+
+                if(keus[0] === "preposition"){
+                    data[0].meaning.preposition.forEach(function(vall) {
+                    const keyTwo = Object.keys(vall);
+                    console.log(keyTwo)
+                    htmll += "<div class ='dog'>";
+                    keyTwo.forEach(function(kei) {
+                        htmll += "<em>" + "<b>" + kei + "</b>" + "</em>: " + vall[kei] + "<br>";
+                    })
+                    htmll += "</div><br>"
+                    })
+                    document.getElementById("testTwo").innerHTML = htmll;
+                }
+
+                if(keus[0] === "pronoun"){
+                    data[0].meaning.pronoun.forEach(function(vall) {
+                    const keyThree = Object.keys(vall);
+                    console.log(keyThree)
+                    htmll += "<div class ='dog'>";
+                    keyThree.forEach(function(kei) {
+                        htmll += "<em>" + "<b>" + kei + "</b>" + "</em>: " + vall[kei] + "<br>";
+                    })
+                    htmll += "</div><br>"
+                    })
+                    document.getElementById("testTwo").innerHTML = htmll;
+                }
+
+                if(keus[0] === "transitive verb"){
+                    data[0].meaning["transitive verb"].forEach(function(vall) {
+                    const keyFour = Object.keys(vall);
+                    console.log(keyFour)
+                    htmll += "<div class ='dog'>";
+                    keyFour.forEach(function(kei) {
+                        htmll += "<em>" + "<b>" + kei + "</b>" + "</em>: " + vall[kei] + "<br>";
+                    })
+                    htmll += "</div><br>"
+                    })
+                    document.getElementById("testTwo").innerHTML = htmll;
+                }
+
+                if(keus[0] === "intransitive verb"){
+                    data[0].meaning["intransitive verb"].forEach(function(vall) {
+                    const keyFive = Object.keys(vall);
+                    console.log(keyFive)
+                    htmll += "<div class ='dog'>";
+                    keyFive.forEach(function(kei) {
+                        htmll += "<em>" + "<b>" + kei + "</b>" + "</em>: " + vall[kei] + "<br>";
+                    })
+                    htmll += "</div><br>"
+                    })
+                    document.getElementById("testTwo").innerHTML = htmll;
+                }
+            
+            
+
+            
+
+        });
+
+
+            };
+
+  
+        </script>
+    </body>
+</html> 
