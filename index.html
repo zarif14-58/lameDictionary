@@ -268,23 +268,7 @@
                     document.getElementById("testTwo").innerHTML = htmll;
                 }
 
-                
-            if(keus[0] === "phrasal verb"){
-                    if(typeof data[0].phonetic === "undefined"){document.getElementById("phonetic").style.display = "none";}
-                    if(typeof data[0].origin === "undefined"){document.getElementById("origin").style.display = "none";}
-                    data[0].meaning["phrasal verb"].forEach(function(vall) {
-                    const keySix = Object.keys(vall);
-                    console.log(keySix)
-                    htmll += "<div class ='dog'>";
-                    keySix.forEach(function(kei) {
-                        htmll += "<em>" + "<b>" + kei + "</b>" + "</em>: " + vall[kei] + "<br>";
-                    })
-                    htmll += "</div><br>"
-                    })
-                    document.getElementById("testTwo").innerHTML = htmll;
-                }
             
-
             
 
         })
