@@ -270,8 +270,8 @@
 
                 
             if(keus[0] === "phrasal verb"){
-                    if(data[0].phonetic === "undefined"){document.getElementById("phonetic").style.display = "none";}
-                    if(data[0].origin === "undefined"){document.getElementById("origin").style.display = "none";}
+                    if(typeof data[0].phonetic === "undefined"){document.getElementById("phonetic").style.display = "none";}
+                    if(typeof data[0].origin === "undefined"){document.getElementById("origin").style.display = "none";}
                     data[0].meaning["phrasal verb"].forEach(function(vall) {
                     const keySix = Object.keys(vall);
                     console.log(keySix)
