@@ -73,7 +73,16 @@
                 </div> -->
             
           </div>
+
           <div class="container">
+              <div class="row justify-content-center align-items-center">
+                  <div class="col-12 col-sm-6 text-center" id="ldr">
+                      
+                  </div>
+              </div>
+          </div>
+
+          <div class="container" id="info">
               <div class="row justify-content-center">
                   <div class="col-12 col-sm-6 align-self-center">
                       <div class="card">
@@ -108,11 +117,16 @@
                     var str = $("#word").val();
                     console.log(str);
                 });*/
+                document.getElementById("info").style.display = "none"
+                
+
             function getInput() {
-                document.getElementById("loder").innerHTML = "LOADING......."
+                document.getElementById("ldr").innerHTML = '<img src="365.svg">'
+                
+                /*document.getElementById("loder").innerHTML = "LOADING......."
                 setTimeout(() => {
                     document.getElementById("loder").style.display = "none";
-                }, 2500);
+                }, 2500);*/
 
                var str = document.getElementById("word").value;
 
@@ -120,6 +134,8 @@
             fetch(`https://api.dictionaryapi.dev/api/v1/entries/en/${str}`)
     .then(response => response.json())
     .then(data => {
+        document.getElementById("ldr").style.display = "none"
+        document.getElementById("info").style.display = "block"
         console.log(data);
         //var arr = JSON.parse(data);
         document.getElementById("title").innerHTML = "Word: " + data[0].word;
@@ -127,6 +143,7 @@
         document.getElementById("phonetic").innerHTML = "<em>" + "<b>" + "Phoenetic: " + "</b>" + "</em>" + data[0].phonetic;
         document.getElementById("origin").innerHTML = "<em>" + "<b>" + "Origin: " + "</b>" + "</em>" + data[0].origin;
         //document.getElementById("testTwo").innerHTML = "meaning: " + data[0].meaning.noun[0].definition;
+        
 
         /*let html = "";
         data.forEach(function(val) {
@@ -157,7 +174,7 @@
                     console.log(keis)
                     htmll += "<div class ='dog'>";
                     keis.forEach(function(kei) {
-                        htmll += "<em>" + "<b>" + kei + "</b>" + "</em>: " + vall[kei] + "<br>";
+                        htmll += "<em>" + "<b>" + kei + ":" + "</b>" + "</em> " + vall[kei] + "<br>";
                     })
                     htmll += "</div><br>"
                 })
@@ -170,7 +187,7 @@
                     console.log(kes)
                     htmll += "<div class ='dog'>";
                     kes.forEach(function(kei) {
-                        htmll += "<em>" + "<b>" + kei + "</b>" + "</em>: " + vall[kei] + "<br>";
+                        htmll += "<em>" + "<b>" + kei + ":" + "</b>" + "</em> " + vall[kei] + "<br>";
                     })
                     htmll += "</div><br>"
                 })
@@ -183,7 +200,7 @@
                     console.log(ke)
                     htmll += "<div class ='dog'>";
                     ke.forEach(function(kei) {
-                        htmll += "<em>" + "<b>" + kei + "</b>" + "</em>: " + vall[kei] + "<br>";
+                        htmll += "<em>" + "<b>" + kei + ":" + "</b>" + "</em> " + vall[kei] + "<br>";
                     })
                     htmll += "</div><br>"
                     })
@@ -196,7 +213,7 @@
                     console.log(k)
                     htmll += "<div class ='dog'>";
                     k.forEach(function(kei) {
-                        htmll += "<em>" + "<b>" + kei + "</b>" + "</em>: " + vall[kei] + "<br>";
+                        htmll += "<em>" + "<b>" + kei + ":" + "</b>" + "</em> " + vall[kei] + "<br>";
                     })
                     htmll += "</div><br>"
                     })
@@ -209,7 +226,7 @@
                     console.log(keyOne)
                     htmll += "<div class ='dog'>";
                     keyOne.forEach(function(kei) {
-                        htmll += "<em>" + "<b>" + kei + "</b>" + "</em>: " + vall[kei] + "<br>";
+                        htmll += "<em>" + "<b>" + kei + ":" + "</b>" + "</em> " + vall[kei] + "<br>";
                     })
                     htmll += "</div><br>"
                     })
@@ -222,7 +239,7 @@
                     console.log(keyTwo)
                     htmll += "<div class ='dog'>";
                     keyTwo.forEach(function(kei) {
-                        htmll += "<em>" + "<b>" + kei + "</b>" + "</em>: " + vall[kei] + "<br>";
+                        htmll += "<em>" + "<b>" + kei + ":" + "</b>" + "</em> " + vall[kei] + "<br>";
                     })
                     htmll += "</div><br>"
                     })
@@ -235,7 +252,7 @@
                     console.log(keyThree)
                     htmll += "<div class ='dog'>";
                     keyThree.forEach(function(kei) {
-                        htmll += "<em>" + "<b>" + kei + "</b>" + "</em>: " + vall[kei] + "<br>";
+                        htmll += "<em>" + "<b>" + kei + ":" + "</b>" + "</em> " + vall[kei] + "<br>";
                     })
                     htmll += "</div><br>"
                     })
@@ -248,7 +265,7 @@
                     console.log(keyFour)
                     htmll += "<div class ='dog'>";
                     keyFour.forEach(function(kei) {
-                        htmll += "<em>" + "<b>" + kei + "</b>" + "</em>: " + vall[kei] + "<br>";
+                        htmll += "<em>" + "<b>" + kei + ":" + "</b>" + "</em> " + vall[kei] + "<br>";
                     })
                     htmll += "</div><br>"
                     })
@@ -261,7 +278,20 @@
                     console.log(keyFive)
                     htmll += "<div class ='dog'>";
                     keyFive.forEach(function(kei) {
-                        htmll += "<em>" + "<b>" + kei + "</b>" + "</em>: " + vall[kei] + "<br>";
+                        htmll += "<em>" + "<b>" + kei + ":" + "</b>" + "</em> " + vall[kei] + "<br>";
+                    })
+                    htmll += "</div><br>"
+                    })
+                    document.getElementById("testTwo").innerHTML = htmll;
+                }
+
+                if(keus[0] === "phrasal verb"){
+                    data[0].meaning["phrasal verb"].forEach(function(vall) {
+                    const keySix = Object.keys(vall);
+                    console.log(keySix)
+                    htmll += "<div class ='dog'>";
+                    keySix.forEach(function(kei) {
+                        htmll += "<em>" + "<b>" + kei + ":" + "</b>" + "</em> " + vall[kei] + "<br>";
                     })
                     htmll += "</div><br>"
                     })
